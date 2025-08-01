@@ -1,14 +1,18 @@
 package com.jagdish.SocailSphere.utilies;
-
 import com.jagdish.SocailSphere.model.entity.User;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 import io.jsonwebtoken.Jwts;
 
+import javax.crypto.SecretKey;
+
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "your_secret_key";
+    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(
+            "Xy7$Lp9!qR2^oM1@jT4&kH6*Zc8%wB0=fN3+Vd5?Sg7!Jr9".getBytes()
+    );
 
     public String generateToken(String username) {
         return Jwts.builder()
