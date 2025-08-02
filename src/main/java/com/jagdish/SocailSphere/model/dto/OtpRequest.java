@@ -1,10 +1,8 @@
 package com.jagdish.SocailSphere.model.dto;
-
 import lombok.Data;
 
 @Data
-public class AuthRequest {
-    private String username;
+public class OtpRequest {
     private String email;
-    private String password;
+    private String otp;
 }
