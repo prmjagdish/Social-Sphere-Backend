@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AuthResponse {
-    private String message;
-    private String token;
-
-}
+    public class ReelDto {
+        private Long id;
+        private String caption;
+        private String videoUrl;
+    }

@@ -3,7 +3,7 @@ import com.jagdish.SocailSphere.model.dto.AuthRequest;
 import com.jagdish.SocailSphere.model.dto.AuthResponse;
 import com.jagdish.SocailSphere.model.dto.LoginRequest;
 import com.jagdish.SocailSphere.model.dto.OtpRequest;
-import com.jagdish.SocailSphere.service.AuthServiceImpl;
+import com.jagdish.SocailSphere.service.impl.AuthServiceImpl;
 import com.jagdish.SocailSphere.service.OtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,8 +40,6 @@ public class AuthController {
         }
     }
 
-
-
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
             try {
@@ -52,8 +50,6 @@ public class AuthController {
                         .body(new AuthResponse(ex.getMessage(), null));
             }
         }
-
-
 
     @PostMapping("/signup")
     public ResponseEntity<String> singUpUser(@RequestBody AuthRequest request){

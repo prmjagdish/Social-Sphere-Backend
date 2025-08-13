@@ -1,9 +1,9 @@
-package com.jagdish.SocailSphere.service;
+package com.jagdish.SocailSphere.service.impl;
 import com.jagdish.SocailSphere.model.dto.AuthRequest;
-import com.jagdish.SocailSphere.model.dto.AuthResponse;
 import com.jagdish.SocailSphere.model.dto.LoginRequest;
 import com.jagdish.SocailSphere.model.entity.User;
 import com.jagdish.SocailSphere.repository.UserRepository;
+import com.jagdish.SocailSphere.service.AuthService;
 import com.jagdish.SocailSphere.utilies.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 
 @Service
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private UserRepository userRepository;
@@ -28,10 +28,12 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public String login(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
+        System.out.println("DEBUG: Trying to find user with username: " + request.getUsername());
+
+        User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            return jwtUtil.generateToken(user.getEmail());
+            return jwtUtil.generateToken(user.getUsername());
         } else {
             throw new BadCredentialsException("Invalid password");
         }
@@ -39,7 +41,7 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public String register(AuthRequest request) {
-        Optional<User> user = userRepository.findByEmail(request.getEmail());
+        Optional<User> user = userRepository.findByUsername(request.getUsername());
         if (user.isPresent()) {
             return "Username already taken.";
         }

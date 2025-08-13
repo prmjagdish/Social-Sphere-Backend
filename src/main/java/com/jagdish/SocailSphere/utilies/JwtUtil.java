@@ -14,9 +14,9 @@ public class JwtUtil {
             "Xy7$Lp9!qR2^oM1@jT4&kH6*Zc8%wB0=fN3+Vd5?Sg7!Jr9".getBytes()
     );
 
-    public String generateToken(String email) {
+    public String generateToken(String username) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hr
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
